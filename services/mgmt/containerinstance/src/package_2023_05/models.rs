@@ -279,16 +279,11 @@ impl ContainerExecResponse {
 pub struct ContainerGroup {
     #[serde(flatten)]
     pub resource: Resource,
-    #[serde(flatten)]
-    pub container_group_properties: ContainerGroupProperties,
-}
-impl ContainerGroup {
-    pub fn new(container_group_properties: ContainerGroupProperties) -> Self {
-        Self {
-            resource: Resource::default(),
-            container_group_properties,
-        }
-    }
+    #[doc = "Identity for the container group."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub identity: Option<ContainerGroupIdentity>,
+    #[doc = "The container group properties"]
+    pub properties: container_group_properties::Properties,
 }
 #[doc = "Container group diagnostic information."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
